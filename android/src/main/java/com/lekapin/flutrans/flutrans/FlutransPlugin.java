@@ -45,7 +45,12 @@ public class FlutransPlugin implements MethodCallHandler, TransactionFinishedCal
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if(call.method.equals("init")) {
-      initMidtransSdk((String)call.argument("client_key").toString(), call.argument("base_url").toString());
+      String clientKey = call.argument("client_key").toString();
+      String baseUrl = call.argument("base_url").toString();
+      String primaryColor = call.argument("primary_color").toString();
+      String darkColor = call.argument("dark_color").toString();
+      String secondaryColor = call.argument("secondary_color").toString();
+      initMidtransSdk(clientKey, baseUrl, primaryColor, darkColor, secondaryColor);
     } else if(call.method.equals("payment")) {
       String str = call.arguments();
       payment(str);
@@ -54,14 +59,14 @@ public class FlutransPlugin implements MethodCallHandler, TransactionFinishedCal
     }
   }
 
-  private void initMidtransSdk(String client_key, String base_url) {
+  private void initMidtransSdk(String client_key, String base_url, String primaryColor, String darkColor, String secondaryColor) {
     SdkUIFlowBuilder.init()
             .setClientKey(client_key) // client_key is mandatory
             .setContext(registrar.context()) // context is mandatory
             .setTransactionFinishedCallback(this) // set transaction finish callback (sdk callback)
             .setMerchantBaseUrl(base_url) //set merchant url
             .enableLog(true) // enable sdk log
-            //.setColorTheme(new CustomColorTheme("#4CAF50", "#009688", "#CDDC39")) // will replace theme on snap theme on MAP
+            .setColorTheme(new CustomColorTheme(primaryColor, darkColor, secondaryColor)) // will replace theme on snap theme on MAP
             .buildSDK();
   }
 

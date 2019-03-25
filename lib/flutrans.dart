@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 typedef Future<void> MidtransCallback(TransactionFinished transactionFinished);
 
@@ -36,12 +37,25 @@ class Flutrans {
     finishCallback = callback;
   }
 
-  Future<void> init(String clientId, String url,
-      {String env = 'production'}) async {
+  Future<void> init(
+    String clientId,
+    String url, {
+    MidtransEnvironment environment,
+    Color primaryColor = Colors.lightBlue,
+    Color darkColor = Colors.blue,
+    Color secondaryColor = Colors.green,
+  }) async {
+    String env = (environment ?? MidtransEnvironment.PRODUCTION) ==
+            MidtransEnvironment.PRODUCTION
+        ? 'production'
+        : 'sandbox';
     await _channel.invokeMethod("init", {
       "client_key": clientId,
       "base_url": url,
       "env": env,
+      "primary_color": "#${primaryColor.value.toRadixString(16)}",
+      "dark_color": "#${darkColor.value.toRadixString(16)}",
+      "secondary_color": "#${secondaryColor.value.toRadixString(16)}",
     });
     return Future.value(null);
   }
@@ -136,3 +150,5 @@ class TransactionFinished {
     this.response,
   );
 }
+
+enum MidtransEnvironment { PRODUCTION, DEVELOPMENT }
