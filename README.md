@@ -4,14 +4,14 @@ Flutter Midtrans Payment Plugin
 
 ## Android setup
 Add style to your android/app/src/main/res/values/styles.xml :
-```
+```xml
 <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
 </style>
 ```
 And full styles.xml will be like below :
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
@@ -26,7 +26,7 @@ And full styles.xml will be like below :
 </resources>
 ```
 And add the style to you Android Manifest in your application tag :
-```
+```xml
 android:theme="@style/AppTheme"
 ```
 ## IOS
