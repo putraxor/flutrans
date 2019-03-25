@@ -33,9 +33,10 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-    
+
+
     dependencies {
-        implementation 'com.midtrans:uikit:1.21.2-SANDBOX'
-        implementation 'com.midtrans:uikit:1.21.2'
+        implementation 'com.midtrans:uikit:1.15.0-SANDBOX'
+        implementation 'com.midtrans:uikit:1.15.0'
     }
 }
